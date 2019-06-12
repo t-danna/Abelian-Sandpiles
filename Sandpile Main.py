@@ -4,16 +4,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
 
-grid_size = 99
+
+grid_size = 349
 if grid_size % 2 ==0:
     grid_size -= 1
 center = math.floor(grid_size/2)
 
 
 def run(n):
-    topple_counter = 0
 
     grid = np.zeros([grid_size, grid_size])
+    grid[center, center] = n
 
     def topple(i, j):
         grid[i, j + 1] += 1
@@ -34,19 +35,17 @@ def run(n):
         for (x, y), i in np.ndenumerate(grid):
             if i > 3:
                 counter += 1
+                break
         if counter == 0:
             print('Stable')
             return True
         else:
             return False
 
-    grid[center, center] = n
-
     while not stable():
         to_topple = unstable()
         for (i, j) in to_topple:
             topple(i, j)
-
 
     cmap = colors.ListedColormap(['black','yellow','orange','red'])
     bounds = [-.5, .5, 1.5, 2.5, 3.5]
