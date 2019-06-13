@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
@@ -9,7 +8,6 @@ grid_size = 99
 if grid_size % 2 ==0:
     grid_size -= 1
 center = grid_size//2
-mask = np.zeros([grid_size, grid_size])
 
 def topple(grid):
     mask = grid > 3
@@ -43,5 +41,5 @@ def run(n):
     return grid
 
 if __name__ == "__main__":
-    from timeit import timeit
-    print(timeit("run(30000)", number=3, setup="from __main__ import run"))
+    grid = run(20000)
+    draw_graph(grid)
