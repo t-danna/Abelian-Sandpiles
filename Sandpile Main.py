@@ -43,9 +43,9 @@ def run(n):
             return False
 
     while not stable():
-        to_topple = unstable()
-        for (i, j) in to_topple:
+        for (i, j) in [(x, y) for (x, y) in unstable()]:
             topple(i, j)
+
 
     cmap = colors.ListedColormap(['black','yellow','orange','red'])
     bounds = [-.5, .5, 1.5, 2.5, 3.5]
