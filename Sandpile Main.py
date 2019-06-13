@@ -37,9 +37,11 @@ def run(n):
 
     while grid[center,center] > 3 or grid.max() > 3:
         topple(grid)
+        if grid[center,0] != 0:
+            print("canvas is too small!!")
+            break
     return grid
 
 if __name__ == "__main__":
     from timeit import timeit
-    print(timeit("run(300)", number=3, setup="from __main__ import run"))
-    # before 0.10332873700099299; after 0.09848564000094484
+    print(timeit("run(30000)", number=3, setup="from __main__ import run"))
