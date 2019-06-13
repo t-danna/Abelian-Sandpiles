@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-import os
-import math
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
@@ -10,13 +9,15 @@ grid_size = 99
 if grid_size % 2 ==0:
     grid_size -= 1
 center = grid_size//2
+mask = np.zeros([grid_size, grid_size])
 
-def topple(grid, i, j):
-    grid[i, j + 1] += 1
-    grid[i, j - 1] += 1
-    grid[i + 1, j] += 1
-    grid[i - 1, j] += 1
-    grid[i, j] -= 4
+def topple(grid):
+    mask = grid > 3
+    grid += np.roll(mask, 1, axis=1)
+    grid += np.roll(mask, -1, axis=1)
+    grid += np.roll(mask, 1, axis=0)
+    grid += np.roll(mask, -1, axis=0)
+    grid -= mask*4
 
 def unstable(grid):
     unstable_list = []
@@ -41,17 +42,11 @@ def run(n):
     grid = np.zeros([grid_size, grid_size])
     grid[center, center] = n
 
-    to_topple = [(center, center)]
-    while to_topple:
-        for (i, j) in to_topple:
-            topple(grid, i, j)
-        to_topple = unstable(grid)
-
+    while grid.max() > 3:
+        topple(grid)
     return grid
 
 if __name__ == "__main__":
-    # ~ grid = run(300)
-    # ~ draw_graph(grid)
     from timeit import timeit
     print(timeit("run(300)", number=3, setup="from __main__ import run"))
-    # 4.965258703000018 before; 2.6293157510001492 after
+    # 2.6293157510001492 before;  after 0.10332873700099299
