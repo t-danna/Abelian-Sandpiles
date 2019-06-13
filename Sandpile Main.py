@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 import math
 import numpy as np
@@ -56,3 +58,7 @@ def run(n):
     plt.imshow(grid)
     plt.colorbar(heatmap, ticks=[0, 1, 2, 3])
     plt.show()
+
+
+if __name__ == "__main__":
+    run(300)
