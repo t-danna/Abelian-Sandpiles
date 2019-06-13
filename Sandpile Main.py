@@ -17,7 +17,7 @@ def topple(grid):
     grid += np.roll(mask, -1, axis=0)
     grid -= mask*4
 
-def draw_graph(grid):
+def draw_graph(grid, n):
     cmap = colors.ListedColormap(['black','yellow','orange','red'])
     bounds = [-.5, .5, 1.5, 2.5, 3.5]
     norm = colors.BoundaryNorm(bounds, cmap.N)
@@ -25,6 +25,7 @@ def draw_graph(grid):
 
     plt.imshow(grid)
     plt.colorbar(heatmap, ticks=[0, 1, 2, 3])
+    plt.title(f"Abelian Sandpile with {n:,} starting grains")
     plt.show()
 
 def run(n):
@@ -41,5 +42,6 @@ def run(n):
     return grid
 
 if __name__ == "__main__":
-    grid = run(20000)
-    draw_graph(grid)
+    n = 20000
+    grid = run(n)
+    draw_graph(grid, n)
