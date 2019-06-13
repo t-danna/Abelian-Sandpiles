@@ -4,10 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
 
-grid_size = 99
-if grid_size % 2 ==0:
-    grid_size -= 1
-center = grid_size//2
+
 
 def topple(grid):
     mask = grid > 3
@@ -28,10 +25,11 @@ def draw_graph(grid, n):
     plt.title(f"Abelian Sandpile with {n:,} starting grains")
     plt.show()
 
-def run(n):
+def run(n, grid_size):
     topple_counter = 0
 
     grid = np.zeros([grid_size, grid_size])
+    center = grid_size//2
     grid[center, center] = n
 
     while grid[center,center] > 3 or grid.max() > 3:
@@ -41,7 +39,18 @@ def run(n):
             break
     return grid
 
-if __name__ == "__main__":
-    n = 20000
-    grid = run(n)
+def main():
+    n = 50000
+    grid_size = 200
+
+    if grid_size % 2 ==0:
+        grid_size -= 1
+
+    grid = run(n, grid_size)
     draw_graph(grid, n)
+
+if __name__ == "__main__":
+    main()
+
+
+
